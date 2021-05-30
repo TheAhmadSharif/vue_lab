@@ -1,0 +1,28 @@
+Install Node
+Install npm
+
+
+npm install -g @vue/cli
+vue --version
+
+
+————————————————————————————————————————————————————————————————————————————
+Creating a Project
+————————————————————————————————————————————————————————————————————————————
+vue create hello-world
+Chosse Default
+
+npm run serve
+
+vue ui
+
+
+Note that the development build is not optimized.
+To create a production build, run npm run build.
+
+
+
+vue router
+
+https://router.vuejs.org/installation.html
+
