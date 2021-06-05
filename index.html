@@ -1,23 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vue Lab</title>
 
-    <link rel="stylesheet" href="assets/css/bootstrap.css">
-    <script src="assets/js/vue.js"></script>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue Lab</title>
+
+  <link rel="stylesheet" href="assets/css/bootstrap.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <style>
+    * {
+      border: none;
+    }
+
+    .male {
+      background: blue;
+      color: #FFF;
+    }
+
+    .female {
+      background: #ee7c90;
+      color: #FFF;
+    }
+  </style>
 </head>
+
 <body>
+  <header id="topHeader">
     <div class="container">
+      <div class="row header-section">
+              <div class="col-sm-4 col-12">
+                    <div class="logo-block">
+                        <a href="#"><img src="assets/logo.png" alt="shop" height="40"></a>
+                    </div>  <!-- End Logo Block -->
+              </div>  <!-- End md 2 -->
+  
+  
+              <div class="col-sm-8 col-12">
+                  <div class="d-flex justify-content-end">
+                        <nav class="nav-block">
+                        <ul class="nav">
+                          <li>
+                            <a href="#">Attire</a>
+                          </li>
+                          <li>
+                            <a href="#">Shoes</a>
+                          </li>
+                          <li>
+                           <a href="#">Watch</a>
+                          </li>
+
+                          
+                          <li class="li-cart" style="margin-left: 10px;">
+                            <a class="btn btn-sm btn-outline-success">Cart 
+                              <span class="badge badge-warning"></span></a>
+                          </li>
+
+                          
+                        </ul> 
+                     </nav>
+                  </div> <!-- End col 8 -->
+            </div> <!-- End col 8 -->
+        </div>    <!-- End row -->
+    </div>    <!-- End container -->
+  </header>
+
+
+
+  <div id="app" class="container">
+    <div v-if="product_list.length < 1" class="mtb-20">
         <div class="row">
-            <div class="col-12">
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio, fugit et repellat eius sint repudiandae omnis aperiam labore ipsam placeat doloribus ipsum ullam laudantium, impedit ab magnam. Libero, possimus temporibus.
-                </p>
-            </div> <!-- End Col 12 -->
-        </div> <!-- End row -->
-    </div> <!-- End Container -->
+             <li v-for="index in [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]" class="card-loader col-4">
+
+             </li>
+        </div>
+    </div>   <!-- End loader -->
+
+    <div class="row">
+      <div class="col-12">
+        <input v-model="message" />
+      </div> <!-- End col 12 -->
+    </div> <!-- End row -->
+
+    <div class="row">
+
+      <div class="col-sm-4" style="margin-bottom:30px;" v-for="object in product_list">
+        <div class="card">
+          <div class="product-img">
+            <img class="card-img-top"
+              v-bind:src="object.image"
+              v-bind:alt="object.title">
+          </div>   <!-- End Product Img -->
+
+          <div class="card-body">
+            <div class="d-flex
+                justify-content-between">
+              <div class="product-title"> 
+                {{ object.title }} 
+
+              </div> <!-- End Product Title-->
+              <div class="product-price" style="margin: 5px
+                  0;"> {{ object.price }} <span class="currency">$</span></div>
+            </div> <!-- End card-body -->
+
+            <div class="btn btn-sm btn-success">Add To Cart</div>
+          </div> <!-- End btn -->
+        </div> <!-- End -->
+      </div>  <!-- End -->
+
+    </div> <!-- End row -->
+  </div> <!-- End Container -->
+  <script src="assets/js/vue.js"></script>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          product_list: []
+        }
+      },
+      methods: {
+        async getProductInfo() {
+          const product_url = "https://fakestoreapi.com/products";
+          const response = await fetch(product_url);
+          const results = await response.json();
+          this.product_list = results;
+        }
+      },
+      beforeMount(){
+          this.getProductInfo()
+       },
+    });
+
+    app.mount('#app');
+  </script>
 </body>
+
 </html>

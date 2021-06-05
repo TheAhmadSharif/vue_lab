@@ -2,3 +2,7 @@ git remote add bitbucket git@bitbucket.org:TheAhmadSharif/vue_lab.git
 
 
 git remote add bitbucket https://username@your.bitbucket.domain/yourproject/repo.git
+
+
+
+v-bind is for html attribute
