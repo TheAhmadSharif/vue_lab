@@ -576,8 +576,10 @@ select.form-control{
     font-size:16px;
     position:relative;
     line-height:1.3em
+    width: 100px;
+    overflow-x: hidden;
 }
-.product-list .currency{
+.product-price .currency{
     font-size:10px;
     position:absolute;
     top:-2px;
