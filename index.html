@@ -28,96 +28,161 @@
 </head>
 
 <body>
-  <header id="topHeader">
-    <div class="container">
-      <div class="row header-section">
-              <div class="col-sm-4 col-12">
-                    <div class="logo-block">
-                        <a href="#"><img src="assets/logo.png" alt="shop" height="40"></a>
-                    </div>  <!-- End Logo Block -->
-              </div>  <!-- End md 2 -->
-  
-  
-              <div class="col-sm-8 col-12">
-                  <div class="d-flex justify-content-end">
-                        <nav class="nav-block">
-                        <ul class="nav">
-                          <li>
-                            <a href="#">Attire</a>
-                          </li>
-                          <li>
-                            <a href="#">Shoes</a>
-                          </li>
-                          <li>
-                           <a href="#">Watch</a>
-                          </li>
+  <div id="app">
 
-                          
-                          <li class="li-cart" style="margin-left: 10px;">
-                            <a class="btn btn-sm btn-outline-success">Cart 
-                              <span class="badge badge-warning"></span></a>
-                          </li>
+    <div id="cartSidebar" class="cart-sidebar" style="display: block;">
+      <div class="d-flex justify-content-between my-4">
+        <div>
+          <span>You have <span class="cartItemLength"> {{ cart.length }}</span> items in your cart.</span>
 
-                          
-                        </ul> 
-                     </nav>
-                  </div> <!-- End col 8 -->
-            </div> <!-- End col 8 -->
-        </div>    <!-- End row -->
-    </div>    <!-- End container -->
-  </header>
+        </div> <!-- End div -->
 
-
-
-  <div id="app" class="container">
-    <div v-if="product_list.length < 1" class="mtb-20">
-        <div class="row">
-             <li v-for="index in [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]" class="card-loader col-4">
-
-             </li>
-        </div>
-    </div>   <!-- End loader -->
-
-    <div class="row">
-      <div class="col-12">
-        <input v-model="message" />
-      </div> <!-- End col 12 -->
-    </div> <!-- End row -->
-
-    <div class="row">
-
-      <div class="col-sm-4" style="margin-bottom:30px;" v-for="object in product_list">
-        <div class="card">
-          <div class="product-img">
-            <img class="card-img-top"
-              v-bind:src="object.image"
-              v-bind:alt="object.title">
-          </div>   <!-- End Product Img -->
-
-          <div class="card-body">
-            <div class="d-flex
-                justify-content-between">
-              <div class="product-title"> 
-                {{ object.title }} 
-
-              </div> <!-- End Product Title-->
-              <div class="product-price" style="margin: 5px
-                  0;"> {{ object.price }} <span class="currency f-12">$</span></div>
-            </div> <!-- End card-body -->
-
-            <div class="btn btn-sm btn-success">Add To Cart</div>
-          </div> <!-- End btn -->
+        <div>
+          <i class="window close outline icon cp" onclick="sidebarToggle()"></i>
+        </div> <!-- End div -->
+      </div> <!-- End div -->
+      <div class="ui divider"></div>
+      <div id="cartSM">
+        <div class="w-100" v-for="object in cart">
+          <div class="cart-item d-flex justify-content-start">
+            <div class="item-img"><img v-bind:src="object.image" class="border"></div> <!-- End Item Img -->
+            <div class="item-info d-flex flex-column justify-content-start w-100">
+              <div class="d-flex justify-content-start">
+                <div class="item-number"><span class="f-12"># {{ object.id }}</span></div> <!-- End Item Number -->
+                <div class="item-name"><span class="f-14"> {{ object.price }}</span></div> <!-- End Item Name -->
+              </div> <!-- End d-flex -->
+              <div class="d-flex justify-content-between">
+                <div class="item-quantity d-flex">
+                  <div class=""><input type="number" value="1" min="1" style="width: 40px; padding: 2px 5px;" class=""
+                      onclick="addQuantity(1,2200,1,event)"></div> <!-- End div -->
+                  <div class="item-price" style="line-height: 1em;"><span class="multiply-symbol mx-2">x</span><span
+                      class="price"></span> {{ object.price }}</div> <!-- End item-price -->
+                </div> <!-- End item-quantity -->
+                <div class="item-totalprice d-flex justify-content-end">
+                  <div class="d-flex justify-content-start"><span class="f-14"> </span><span class="currency mx-2">
+                      TK</span></div> <!-- End -->
+                  <div class="remove" onclick="removeItem(1,79)">x</div>
+                </div> <!-- End item-totalprice -->
+              </div> <!-- End  d-flex-->
+            </div> <!-- End  item-info-->
+          </div> <!-- End cart-item -->
+          <div class="ui divider"></div>
         </div> <!-- End -->
-      </div>  <!-- End -->
+      </div> <!-- End cartSM -->
 
-    </div> <!-- End row -->
-  </div> <!-- End Container -->
+
+
+      <div class="d-flex flex-column align-items-end">
+        <div style="margin: 0 0 20px 0">
+          Total = <span class="grandTotalSpan f-20">{{ total }}</span><span class="currency"> TK</span>
+        </div> <!-- End -->
+        <div>
+          <a href="cart.php#placeOrder" class="btn btn-xl" style="">Place Order <i class="chevron right icon"
+              style=""></i></a>
+        </div>
+      </div> <!-- End subtotal -->
+
+      <div>
+
+      </div>
+
+
+    </div> <!-- End subtotal -->
+
+
+    <header id="topHeader">
+      <div class="container">
+        <div class="row header-section">
+          <div class="col-sm-4 col-12">
+            <div class="logo-block">
+              <a href="#"><img src="assets/logo.png" alt="shop" height="40"></a>
+            </div> <!-- End Logo Block -->
+          </div> <!-- End md 2 -->
+
+
+          <div class="col-sm-8 col-12">
+            <div class="d-flex justify-content-end">
+              <nav class="nav-block">
+                <ul class="nav">
+                  <li>
+                    <a href="#">Attire</a>
+                  </li>
+                  <li>
+                    <a href="#">Shoes</a>
+                  </li>
+                  <li>
+                    <a href="#">Watch</a>
+                  </li>
+
+
+                  <li class="li-cart" style="margin-left: 10px;">
+                    <a class="btn btn-sm btn-success">Cart
+                      <span class="badge badge-warning">{{ cart.length  }}</span></a>
+                  </li>
+
+
+                </ul>
+              </nav>
+            </div> <!-- End col 8 -->
+          </div> <!-- End col 8 -->
+        </div> <!-- End row -->
+      </div> <!-- End container -->
+    </header>
+
+
+
+    <div class="container">
+      <div v-if="product_list.length < 1" class="mtb-20">
+        <div class="row">
+          <li v-for="index in [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]" class="card-loader col-4">
+
+          </li>
+        </div>
+      </div> <!-- End loader -->
+
+      <div class="row">
+        <div class="col-12">
+
+          Total 
+
+        </div> <!-- End col 12 -->
+      </div> <!-- End row -->
+
+      <div class="row">
+
+        <div class="col-sm-4" style="margin-bottom:30px;" v-for="object in product_list">
+          <div class="card">
+            <div class="product-img">
+              <img class="card-img-top" v-bind:src="object.image" v-bind:alt="object.title">
+            </div> <!-- End Product Img -->
+
+            <div class="card-body">
+              <div class="d-flex
+                justify-content-between">
+                <div class="product-title">
+                  {{ object.title }}
+
+                </div> <!-- End Product Title-->
+                <div class="product-price" style="margin: 5px
+                  0;"> {{ object.price }} <span class="currency f-12">$</span></div>
+              </div> <!-- End card-body -->
+
+              <div class="btn btn-sm btn-success" v-on:click="addToCart(object)">Add To Cart</div>
+            </div> <!-- End btn -->
+          </div> <!-- End -->
+        </div> <!-- End -->
+
+      </div> <!-- End row -->
+    </div> <!-- End Container -->
+  </div> <!-- End app -->
   <script src="assets/js/vue.js"></script>
   <script>
     const app = Vue.createApp({
       data() {
         return {
-          product_list: []
+          message: "Start Typing",
+          product_list: [],
+          cart: []
         }
       },
       methods: {
@@ -126,11 +191,28 @@
           const response = await fetch(product_url);
           const results = await response.json();
           this.product_list = results;
+        },
+        addToCart(object) {
+          console.log(typeof object, '____138');
+          this.cart.push(object);
+          console.log(this.cart.length);
+          console.log(this);
         }
       },
-      beforeMount(){
-          this.getProductInfo()
-       },
+      computed: {
+        total() {
+
+          var arr = this.cart;
+          var total = 0;
+          for (var i in arr) {
+            total += arr[i].price;
+          }
+          return total;
+        }
+      },
+      beforeMount() {
+        this.getProductInfo()
+      },
     });
 
     app.mount('#app');
